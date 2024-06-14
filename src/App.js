@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import WeatherCard from './WeatherCard';
+import SearchBar from './SearchBar';
 
 function App() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+      <header className="app-header">
+        <h1>Weather App</h1>
+        <button className="toggle-mode" onClick={() => setDarkMode(!darkMode)}>
+          Toggle {darkMode ? 'Light' : 'Dark'} Mode
+        </button>
       </header>
+      <SearchBar setWeatherData={setWeatherData} />
+      {weatherData && <WeatherCard data={weatherData} />}
     </div>
   );
 }
